@@ -150,8 +150,11 @@ def vigenere_cipher(message, key):
     lmao = [ord(i) for i in message]
     damn = ""
     for i in range(len(lmao)):
-        value = (lmao[i] + ciara[i % gabxu]) % 26
-        damn += chr(value + 65)
+        if message[i]==" ":
+            damn += " "
+        else:
+            value = (lmao[i] + ciara[i % gabxu]) % 26
+            damn += chr(value + 65)
     return damn
 
     vigenere_cipher ("A C", "KEY")
@@ -211,15 +214,22 @@ def scytale_cipher(message, shift):
     # Replace `pass` with your code. 
     # Stay within the function. Only use the parameters as input. The function should return your answer.
 def scytale_cipher(message, shift):
-    assert len(message) % shift == 0
-    n = len(message)
-    columns = n // shift
-    secret = ['-'] * n
-    for i in range(n):
-        gab = i // columns
-        ciara = i % columns
-        secret[ciara * shift + gab] = message[i]
-    return "".join(secret)
+    message=str(message)
+    shift=int(shift)
+    encoded = ""
+ 
+    while(True):
+        if len(message) % shift != 0:
+            message+="_"
+        else:
+            for i,character in enumerate(message):
+                cipher=(i//shift)+(len(message)//shift)*(i% shift)
+                i=cipher
+                character=message[i]
+                encoded+=character
+            return encoded
+        
+
 
     scytale_cipher("INFORMATION_AGE", 3)
 
@@ -250,8 +260,17 @@ def scytale_decipher(message, shift):
     '''
     # Replace `pass` with your code. 
     # Stay within the function. Only use the parameters as input. The function should return your answer.
-def scytale_decipher(secret, shift):
-    assert len(secret) % shift == 0
-    return scytale_cipher(len(secret) // shift, secret)
+def scytale_decipher(message, shift):
+    message = str(message)
+    shift= int(shift)
+    decipher = ""
+    
+    while (len(decipher)<len(message)):
+        decpiher+="_"
+    
+    for d,f in enumerate(message):
+        index=(d//shift)+(len(message)//shift)*(d%shift)
+        for e,g in enumerate(decipher):
+            decipher=decipher[:index]+f+decipher[index+1:]
+            return decipher
 
-    scytale_decipher("IMNNA_FTAOIGROE", 3)
