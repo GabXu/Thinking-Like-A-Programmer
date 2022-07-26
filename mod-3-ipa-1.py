@@ -38,7 +38,12 @@ def shift_letter(letter, shift):
     # Replace `pass` with your code. 
     # Stay within the function. Only use the parameters as input. The function should return your answer.
 def shift_letter(letter, shift):
-    return ''.join(chr(ord(ciara) + shift) for ciara in letter)
+    if letter.isupper():
+        return chr((ord(letter)+int(shift)-65)%26+65)
+    elif letter == " ":
+        return " "
+    else:
+        return "Error"
 
     shift_letter("A", 2)
 
@@ -214,24 +219,15 @@ def scytale_cipher(message, shift):
     # Replace `pass` with your code. 
     # Stay within the function. Only use the parameters as input. The function should return your answer.
 def scytale_cipher(message, shift):
-    message=str(message)
-    shift=int(shift)
-    encoded = ""
- 
-    while(True):
-        if len(message) % shift != 0:
-            message+="_"
-        else:
-            for i,character in enumerate(message):
-                cipher=(i//shift)+(len(message)//shift)*(i% shift)
-                i=cipher
-                character=message[i]
-                encoded+=character
-            return encoded
-        
+    while len(message)%shift != 0:
+        message += "_"
+        if len(message)%shift == 0:
+            break
+    for i in range(len(message)):
+        cypher = message[((i // shift) + (len(message) // shift) * (i % shift))]
+        for j in cypher:
+            print(j, end="")
 
-
-    scytale_cipher("INFORMATION_AGE", 3)
 
 def scytale_decipher(message, shift):
     '''Scytale De-cipher.
@@ -261,16 +257,8 @@ def scytale_decipher(message, shift):
     # Replace `pass` with your code. 
     # Stay within the function. Only use the parameters as input. The function should return your answer.
 def scytale_decipher(message, shift):
-    message = str(message)
-    shift= int(shift)
-    decipher = ""
-    
-    while (len(decipher)<len(message)):
-        decpiher+="_"
-    
-    for d,f in enumerate(message):
-        index=(d//shift)+(len(message)//shift)*(d%shift)
-        for e,g in enumerate(decipher):
-            decipher=decipher[:index]+f+decipher[index+1:]
-            return decipher
+    for i in range(len(message)):
+        cipher = message[((i // shift) + (len(message) // shift) * (i % shift))]
+        for j in cipher[:-1]:
+            print(j, end="")
 
